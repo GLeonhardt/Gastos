@@ -1,0 +1,23 @@
+﻿@model List<Gastos.Web.Models.TagsViewModel>;
+@{
+    ViewData["Title"] = "Tags";
+    var tags = ViewData.Model;
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <a href="/home">voltar</a>
+            <a href="/tags/criar" class="btn btn-primary float-right">Nova Tag</a>
+            <h2>Tags</h2>
+            @foreach (var tag in tags)
+            {
+                <a href="/tags/@tag.Id">
+                    <div class="card mt-2 p-2">
+                        <p>@tag.Tag</p>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>

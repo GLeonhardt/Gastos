@@ -72,7 +72,11 @@ namespace Gastos.Infrastructure.Models
                 .HasMany(e => e.Detalhes)
                 .WithMany(e => e.Tags)
                 .UsingEntity(j => j.ToTable("DetalhesTags"));
-                entity.HasMany(e => e.Movimentacoes).WithMany(e => e.Tags).UsingEntity(f => f.ToTable("MovimentacoesTags"));
+
+                entity
+                .HasMany(e => e.Movimentacoes)
+                .WithMany(e => e.Tags)
+                .UsingEntity(f => f.ToTable("MovimentacoesTags"));
             });
 
             modelBuilder.Entity<TipoMovimentacoes>(entity =>

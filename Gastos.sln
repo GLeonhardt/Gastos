@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gastos.Web", "Gastos.Web\Gastos.Web.csproj", "{E70874C1-F5B3-4ABE-82B9-76E4106DF0E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gastos.Web", "Gastos.Web\Gastos.Web.csproj", "{E70874C1-F5B3-4ABE-82B9-76E4106DF0E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gastos.Infrastructure", "Gastos.Infrastructure\Gastos.Infrastructure.csproj", "{6E8DEEA2-F9AB-4F6A-A209-D5A0BB978C56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gastos.Infrastructure", "Gastos.Infrastructure\Gastos.Infrastructure.csproj", "{6E8DEEA2-F9AB-4F6A-A209-D5A0BB978C56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
