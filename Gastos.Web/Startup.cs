@@ -1,3 +1,6 @@
+using Gastos.Core.Interfaces;
+using Gastos.Core.Services;
+using Gastos.Infrastructure.Data;
 using Gastos.Infrastructure.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,15 +29,18 @@ namespace Gastos.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
-            //services.AddDbContextFactory<GastosContext>(
-            //    options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddDbContext<GastosContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<Usuarios, IdentityRole>().AddEntityFrameworkStores<GastosContext>();
+
+            services.AddControllersWithViews();
+
+            services.AddScoped<TagsService>();
+            services.AddScoped<ITagsRepository, TagsRepository>();
+            //services.AddDbContextFactory<GastosContext>(
+            //    options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
