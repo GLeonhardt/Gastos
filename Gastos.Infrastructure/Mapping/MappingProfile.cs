@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Gastos.Core.DTO;
 using Gastos.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Infrastructure.Mapping
     {
         public MappingProfile()
         {
-            //CreateMap<Tags, TagsViewModel>();
+            CreateMap<Tags, TagsDTO>().ForMember(destination => destination.Id, opt => opt.MapFrom(source => source.TagId));
         }
     }
 }

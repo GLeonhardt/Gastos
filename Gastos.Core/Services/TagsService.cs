@@ -1,4 +1,5 @@
-﻿using Gastos.Core.Interfaces;
+﻿using Gastos.Core.DTO;
+using Gastos.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,9 +16,20 @@ namespace Gastos.Core.Services
         }
 
 
-        public async Task<List<object>> GetTagsByUsuario(string usuarioId)
+        public async Task<List<TagsDTO>> GetTagsByUsuario(string usuarioId)
         {
             return await _tagsRepository.GetTagsByUsuario(usuarioId);
         }
+
+        public async Task<bool> CreateTagUsuario(string usuarioId, string tag)
+        {
+            return await _tagsRepository.CreateTagUsuario(usuarioId, tag);
+        }
+
+        public async Task<bool> DeleteTagUsuario(string usuarioId, long tagId)
+        {
+            return await _tagsRepository.DeleteTagUsuario(usuarioId, tagId);
+        }
+
     }
 }

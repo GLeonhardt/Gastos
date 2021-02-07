@@ -1,7 +1,9 @@
+using AutoMapper;
 using Gastos.Core.Interfaces;
 using Gastos.Core.Services;
 using Gastos.Infrastructure.Data;
 using Gastos.Infrastructure.Models;
+using Infrastructure.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +35,8 @@ namespace Gastos.Web
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<Usuarios, IdentityRole>().AddEntityFrameworkStores<GastosContext>();
+
+            services.AddAutoMapper(c => c.AddProfile<MappingProfile>(), typeof(Startup));
 
             services.AddControllersWithViews();
 

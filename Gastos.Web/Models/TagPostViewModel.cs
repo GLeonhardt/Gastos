@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gastos.Web.Models
 {
-    public class TagsViewModel
+    public class TagPostViewModel
     {
-        public long Id { get; set; }
+        [Required]
         public string Tag { get; set; }
     }
 }

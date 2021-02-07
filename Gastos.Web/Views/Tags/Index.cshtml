@@ -1,4 +1,4 @@
-﻿@model List<Gastos.Web.Models.TagsViewModel>;
+﻿@model List<Gastos.Core.DTO.TagsDTO>;
 @{
     ViewData["Title"] = "Tags";
     var tags = ViewData.Model;
@@ -6,18 +6,35 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <a href="/home">voltar</a>
-            <a href="/tags/criar" class="btn btn-primary float-right">Nova Tag</a>
+        <div class="col-md-4">
+            <a href="/tags/create" class="btn btn-primary float-right">Nova Tag</a>
             <h2>Tags</h2>
             @foreach (var tag in tags)
             {
-                <a href="/tags/@tag.Id">
-                    <div class="card mt-2 p-2">
-                        <p>@tag.Tag</p>
-                    </div>
-                </a>
-            }
-        </div>
+                <form method="POST" action="/tags/Delete/@tag.Id">
+                    <a href="/tags/edit/@tag.Id">
+                        <div class="card mt-2 p-2">
+                            <div class="items-container">
+                                <div class="item-1">
+                                    <h4>@tag.Tag</h4>
+                                    <span asp-validation-for="@tag.Id" class="text-danger"></span>
+                                </div>
+                                <div class="item-2">
+                                    <button type="submit" class="btn btn-small btn-danger"><i class="far fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    </form>
+                    }
+            </div>
     </div>
 </div>
+
+<style>
+    .items-container{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+    }
+</style>
