@@ -2,6 +2,7 @@
 using Gastos.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,5 +32,12 @@ namespace Gastos.Core.Services
             return await _tagsRepository.DeleteTagUsuario(usuarioId, tagId);
         }
 
+
+        public async Task<TagsDTO> BuscarTagById(string usuarioId, long tagId)
+        {
+            var tag = await _tagsRepository.GetTagsByUsuario(usuarioId);
+
+            return tag.Where(x => x.Id == tagId).SingleOrDefault();
+        }
     }
 }

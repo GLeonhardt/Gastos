@@ -38,7 +38,7 @@ namespace Gastos.Web
 
             services.AddAutoMapper(c => c.AddProfile<MappingProfile>(), typeof(Startup));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 
             services.AddScoped<TagsService>();
             services.AddScoped<ITagsRepository, TagsRepository>();

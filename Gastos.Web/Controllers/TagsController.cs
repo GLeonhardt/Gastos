@@ -46,29 +46,25 @@ namespace Gastos.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(string tag)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(TagPostViewModel tagPost)
         {
             try
             {
                 var user = await _userManager.GetUserAsync(User);
 
-                _ = await _TagsService.CreateTagUsuario(user.Id, tag);
+                _ = await _TagsService.CreateTagUsuario(user.Id, tagPost.Tag);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(tag, ex.Message);
+                ModelState.AddModelError(tagPost.Tag, ex.Message);
                 return View("Create");
             }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(TagPostViewModel tag)
-        {
-            return View("Create");
-        }
-
-        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(long id)
         {
             try
@@ -85,6 +81,45 @@ namespace Gastos.Web.Controllers
 
             return RedirectToAction("Index");
 
+        }
+
+        [Route("~/tags/editar/{id}")]
+        public async Task<IActionResult> Edit(long? id)
+        {
+            try
+            {
+                if (id is null)
+                    return NotFound();
+
+                var user = await _userManager.GetUserAsync(User);
+                var tag = await _TagsService.BuscarTagById(user.Id, Convert.ToInt64(id));
+
+                if (tag is null)
+                    return NotFound();
+
+                return View(tag);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index");
+            }
+
+        }
+
+        [HttpPut]
+        [Route("~/tags/editar/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateTag(long id, TagPostViewModel tagPut)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("Index");
         }
     }
 }
