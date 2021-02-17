@@ -11,6 +11,7 @@ namespace Gastos.Core.Interfaces
         Task<List<TagsDTO>> GetTagsByUsuario(string usuarioId);
         Task<bool> CreateTagUsuario(string usuarioId, string tag);
         Task<bool> DeleteTagUsuario(string usuarioId, long tagId);
+        Task<bool> UpdateTagUsuario(string usuarioId, long tagId, string tagNova);
 
     }
 }

@@ -46,5 +46,17 @@ namespace Gastos.Infrastructure.Data
             await _GastosContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> UpdateTagUsuario(string usuarioId,long tagId, string tagNova)
+        {
+            var tag = await _GastosContext.Tags.Where(x => x.UsuarioId == usuarioId && x.TagId == tagId).SingleOrDefaultAsync();
+
+            if (tag is null)
+                throw new Exception($"Tag não encontrada");
+
+            tag.Tag = tagNova;
+            await _GastosContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

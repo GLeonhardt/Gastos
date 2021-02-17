@@ -39,5 +39,10 @@ namespace Gastos.Core.Services
 
             return tag.Where(x => x.Id == tagId).SingleOrDefault();
         }
+
+        public async Task<bool> UpdateTagUsuario(string usuarioId, long tagId, string tag)
+        {
+            return await _tagsRepository.UpdateTagUsuario(usuarioId, tagId, tag);
+        }
     }
 }

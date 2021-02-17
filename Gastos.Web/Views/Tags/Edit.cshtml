@@ -1,0 +1,42 @@
+﻿@model Gastos.Core.DTO.TagsDTO
+
+@{
+    ViewData["Title"] = "Editar Tag";
+
+}
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Cadastrar Tag</div>
+                <div class="card-body">
+                    <form method="post" asp-controller="Tags" asp-action="editar" asp-route-id="@Model.Id" id="form" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="form-group row">
+                                <div id="retorno">@ViewBag.Message</div>
+                            </div>
+                        }
+                        <div class="form-group row">
+                            <label for="Tag" class="col-md-4 col-form-label text-md-right">Tag</label>
+                            <div class="col-md-6">
+                                <input asp-for="Tag" class="form-control" required autocomplete="Tag" autofocus />
+                                <span asp-validation-for="Tag" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

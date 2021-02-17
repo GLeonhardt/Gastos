@@ -84,6 +84,7 @@ namespace Gastos.Web.Controllers
         }
 
         [Route("~/tags/editar/{id}")]
+        [HttpGet]
         public async Task<IActionResult> Edit(long? id)
         {
             try
@@ -106,19 +107,22 @@ namespace Gastos.Web.Controllers
 
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("~/tags/editar/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateTag(long id, TagPostViewModel tagPut)
         {
             try
             {
-
+                var user = await _userManager.GetUserAsync(User);
+                _ = await _TagsService.UpdateTagUsuario(user.Id, id, tagPut.Tag);
             }
             catch (Exception ex)
             {
-
+                ViewBag.Message = ex.Message;
+                return View("Edit", new TagsDTO{Id = id, Tag = tagPut.Tag});
             }
+
             return RedirectToAction("Index");
         }
     }
