@@ -23,7 +23,7 @@ namespace Gastos.Web.Controllers
             _TagsService = tagsService;
         }
 
-        public async Task<IActionResult> Index(long? id)
+        public async Task<IActionResult> Index()
         {
             var tags = new List<TagsDTO>();
             try

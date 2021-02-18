@@ -42,6 +42,9 @@ namespace Gastos.Web
 
             services.AddScoped<TagsService>();
             services.AddScoped<ITagsRepository, TagsRepository>();
+
+            services.AddScoped<MovimentacaoService>();
+            services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
             //services.AddDbContextFactory<GastosContext>(
             //    options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
