@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gastos.Core\Gastos.Core.csproj" />
-    <ProjectReference Include="..\Gastos.Infrastructure\Gastos.Infrastructure.csproj" />
+    <ProjectReference Include="..\Gastos.Repository\Gastos.Repository.csproj" />
   </ItemGroup>
 
 </Project>

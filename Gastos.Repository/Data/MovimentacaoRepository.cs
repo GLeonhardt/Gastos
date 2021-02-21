@@ -3,7 +3,9 @@ using Gastos.Core.Interfaces;
 using Gastos.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Gastos.Infrastructure.Data
 {
@@ -15,6 +17,16 @@ namespace Gastos.Infrastructure.Data
         {
             _GastosContext = gastosContext;
             _IMapper = autoMapper;
+        }
+
+
+        public async Task<bool> Create(Movimentacoes movimentacoes, List<long> tags)
+        {
+                var dbTags = _GastosContext.Tags.Where(x => tags.Contains(x.TagId)).ToList();
+                movimentacoes.Tags.AddRange(dbTags);
+                _GastosContext.Movimentacoes.Add(movimentacoes);
+                _ = await _GastosContext.SaveChangesAsync();
+                return true;
         }
     }
 }

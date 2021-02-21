@@ -1,5 +1,7 @@
-﻿using Gastos.Core.Services;
+﻿using Gastos.Core.Models;
+using Gastos.Core.Services;
 using Gastos.Infrastructure.Models;
+using Gastos.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +41,25 @@ namespace Gastos.Web.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(MovimentacaoPost movimentacao)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                _ = await _movimentacaoService.Create(movimentacao, user.Id);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("Create");
+            }
+
+            return RedirectToAction("Home");
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿@model Gastos.Core.Models.MovimentacaoPost
+
+@{
+    var i = ViewBag.index;
+}
+
+<div class="form-group row">
+    <label for="Nome" class="col-md-4 col-form-label text-md-right">Nome</label>
+    <div class="col-md-6">
+        <input asp-for="Detalhes[@i].Detalhe" class="form-control" required autocomplete="Detalhes[@i].Detalhe" autofocus />
+        <span asp-validation-for="Detalhes[@i].Detalhe" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="Valor" class="col-md-4 col-form-label text-md-right">Valor</label>
+    <div class="col-md-6">
+        <input asp-for="Detalhes[@i].Valor" class="form-control" required autocomplete="Detalhes[@i].Valor" type="number" step=".01" min="0.01" autofocus />
+        <span asp-validation-for="Detalhes[@i].Valor" class="text-danger"></span>
+    </div>
+</div>

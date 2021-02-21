@@ -1,9 +1,15 @@
-﻿@model MovimentacaoPost
+﻿@model Gastos.Core.Models.MovimentacaoPost
 
 @{
     ViewData["Title"] = "Nova Movimentação";
 
 }
+
+<style>
+    .tagsSelecionadas {
+        ;
+    }
+</style>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -11,8 +17,14 @@
             <div class="card">
                 <div class="card-header">Cadastrar Movimentação</div>
                 <div class="card-body">
-                    <form method="post" asp-controller="Tags" asp-action="Create" id="form" enctype="multipart/form-data">
+                    <form method="post" asp-controller="Movimentacao" asp-action="Create" id="form" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="form-group row">
+                                <div id="retorno">@ViewBag.Message</div>
+                            </div>
+                        }
                         <div class="form-group row">
                             <label for="TipoMovimentacao" class="col-md-4 col-form-label text-md-right">Tipo</label>
                             <div class="col-md-6">
@@ -24,10 +36,45 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="Tag" class="col-md-4 col-form-label text-md-right">Tag</label>
+                            <label for="Data" class="col-md-4 col-form-label text-md-right">Data</label>
                             <div class="col-md-6">
-                                <input asp-for="Nome" class="form-control" required autocomplete="Tag" autofocus />
+                                <input asp-for="Data" class="form-control"/>
+                                <span asp-validation-for="Data" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Nome" class="col-md-4 col-form-label text-md-right">Nome</label>
+                            <div class="col-md-6">
+                                <input asp-for="Nome" class="form-control" required autocomplete="Nome" autofocus />
                                 <span asp-validation-for="Nome" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Valor" class="col-md-4 col-form-label text-md-right">Valor</label>
+                            <div class="col-md-6">
+                                <input asp-for="Valor" class="form-control" required autocomplete="Valor" type="number" step=".01" min="0.01" autofocus />
+                                <span asp-validation-for="Nome" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Tags" class="col-md-4 col-form-label text-md-right">Tags</label>
+
+                            <div class="col-md-6">
+                                <select id="movimentacaoTag">
+                                    <option value="" disabled selected>Selecione</option>
+                                    @foreach (var tag in ViewBag.Tags)
+                                    {
+                                        <option value="@tag.Id">@tag.Tag</option>
+                                    }
+                                </select>
+                                @*<input asp-for="Valor" class="form-control" required autocomplete="Valor" type="number" min="0.01" autofocus />*@
+                                <span asp-validation-for="Tags" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Tags" class="col-md-4 col-form-label text-md-right">Tags Selecionadas</label>
+                            <div class="col-md-6">
+                                <div id="tagsSelecionadas" style="padding-top: calc(.375rem + 1px)"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -40,6 +87,9 @@
     </div>
 </div>
 
+<script src="~/js/Movimentacao.js" asp-append-version="true"></script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+

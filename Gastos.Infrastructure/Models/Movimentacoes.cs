@@ -13,7 +13,7 @@ namespace Gastos.Infrastructure.Models
         public long TipoMovimentacaoId { get; set; }
         public string Nome { get; set; }
         public decimal Valor { get; set; }
-        public DateTime? Data { get; set; }
+        public DateTime Data { get; set; }
 
         public TipoMovimentacoes TipoMovimentacao { get; set; }
         public Usuarios Usuario { get; set; }
