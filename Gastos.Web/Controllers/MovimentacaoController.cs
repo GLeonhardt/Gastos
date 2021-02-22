@@ -43,6 +43,22 @@ namespace Gastos.Web.Controllers
             }
         }
 
+        public async Task<IActionResult> DetalhesView(int index)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var tags = await _tagsService.GetTagsByUsuario(user.Id);
+                ViewBag.Tags = tags;
+                ViewBag.Index = index;
+                return PartialView("~/Views/Shared/Partials/Detalhes/Create_Partial.cshtml");
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(MovimentacaoPost movimentacao)
