@@ -1,4 +1,5 @@
-﻿using Gastos.Infrastructure.Models;
+﻿using Gastos.Core.DTO;
+using Gastos.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Gastos.Core.Interfaces
     public interface IMovimentacaoRepository
     {
         Task<bool> Create(Movimentacoes movimentacoes, List<long> tags);
+        MovimentacoesInformacoesDTO GetMovimentacao(string userId, long movimentacaoId);
     }
 }

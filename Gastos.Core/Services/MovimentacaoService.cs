@@ -1,4 +1,5 @@
-﻿using Gastos.Core.Interfaces;
+﻿using Gastos.Core.DTO;
+using Gastos.Core.Interfaces;
 using Gastos.Core.Models;
 using Gastos.Infrastructure.Models;
 using System;
@@ -48,6 +49,10 @@ namespace Gastos.Core.Services
                 Detalhes = detalhes
             };
             return await _movimentacaoRepository.Create(movimentacao, tagList);
+        }
+        public MovimentacoesInformacoesDTO GetMovimentacao(string userId, long movimentacaoId)
+        {
+            return _movimentacaoRepository.GetMovimentacao(userId, movimentacaoId);
         }
     }
 }

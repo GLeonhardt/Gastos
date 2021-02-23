@@ -77,5 +77,23 @@ namespace Gastos.Web.Controllers
 
             return RedirectToAction("Home");
         }
+
+        [HttpGet]
+        [Route("~/movimentacao/{id}")]
+        public async Task<IActionResult> GetMovimentacaoAsync(long id)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                var movimentacao = _movimentacaoService.GetMovimentacao(user.Id, id);
+                return View("Details", movimentacao);
+            }
+            catch (Exception e){ 
+                
+            }
+            return Ok();
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Gastos.Core.DTO;
 using Gastos.Core.Interfaces;
 using Gastos.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,17 @@ namespace Gastos.Infrastructure.Data
             _GastosContext.Movimentacoes.Add(movimentacoes);
             _ = await _GastosContext.SaveChangesAsync();
             return true;
+        }
+
+        public MovimentacoesInformacoesDTO GetMovimentacao(string userId, long movimentacaoId)
+        {
+            var movimentacao = _GastosContext.Movimentacoes
+                    .Where(x => x.UsuarioId == userId && x.MovimentacaoId == movimentacaoId)
+                    .Include(x => x.Detalhes).ThenInclude(x => x.Tags)
+                    .Include(x => x.Tags)
+                    .SingleOrDefault();
+
+            return _IMapper.Map<MovimentacoesInformacoesDTO>(movimentacao);
         }
     }
 }

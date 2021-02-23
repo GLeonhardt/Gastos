@@ -1,0 +1,84 @@
+﻿@model Gastos.Core.DTO.MovimentacoesInformacoesDTO
+
+@{
+    ViewData["Title"] = "Movimentação";
+    var tipo = Model.TipoMovimentacao == Gastos.Core.Models.Enum.EnumTipoMovimentacao.Entrada ? "Entrada:" : "Saída:";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h2>Movimentação</h2>
+            <form method="POST" action="/movimentacao/Delete/@Model.Id">
+
+                <div class="card mt-2 p-2">
+                    <div class="items-container">
+                        <div class="item-1">
+                            <h4>@Model.Nome</h4>
+                            <span asp-validation-for="@Model.Id" class="text-danger"></span>
+                        </div>
+                        <div class="item-2">
+                            <button type="submit" class="btn btn-small btn-danger"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                    <div id="valor">
+                        <p>@tipo:  $@Model.Valor</p>
+                    </div>
+                    <div id="Data">
+                        <p>Data: @Model.Data.ToString("dd/MM/yy HH:mm")</p>
+                    </div>
+                    <p><strong>Tags:</strong></p>
+                    <div class="tagsContainer" id="tags">
+
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <span class="tags"> @tag</span>
+                        }
+                    </div>
+                    @if (Model.Detalhes.Count > 0)
+                    {
+                        <div class="card-header"> Detalhes</div>
+                    }
+                    @foreach (var detalhe in Model.Detalhes)
+                    {
+                        <div id="detalheNome">
+                            <p>Nome: @detalhe.Nome</p>
+                        </div>
+                        <div id="detalheValor">
+                            <p>Valor: $@detalhe.Valor</p>
+                        </div>
+                        <p><strong>Tags:</strong></p>
+                        <div class="tagsContainer" id="tags">
+
+                            @foreach (var tag in detalhe.Tags)
+                            {
+                                <span class="tags"> @tag</span>
+                            }
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .items-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .tagsContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .tags {
+        padding: 4px;
+        background-color: #a1d8ff;
+        border-radius: 12px;
+        margin: 4px;
+        color: #2e2e2e;
+    }
+</style>
