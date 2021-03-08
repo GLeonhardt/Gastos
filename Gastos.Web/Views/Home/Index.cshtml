@@ -1,8 +1,122 @@
-﻿@{
+﻿@model Gastos.Core.Models.DTO.ResumoHomeDTO
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learnfffffffffff <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Buscar</div>
+                <div class="card-body">
+                    <form method="get" asp-controller="Home" asp-action="Index" id="form">
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="form-group row">
+                                <div id="retorno">@ViewBag.Message</div>
+                            </div>
+                        }
+                        <div class="form-group row">
+                            <label for="dataInicial" class="col-md-4 col-form-label text-md-right">Data Inicial</label>
+                            <div class="col-md-6">
+                                <input name="dataInicial" class="form-control" type="date" value="@ViewBag.DataInicial.ToString("yyyy-MM-dd")" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dataFinal" class="col-md-4 col-form-label text-md-right">Data Final</label>
+                            <div class="col-md-6">
+                                <input name="dataFinal" class="form-control" type="date" value="@ViewBag.DataFinal.ToString("yyyy-MM-dd")" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Tags" class="col-md-4 col-form-label text-md-right">Tags</label>
+
+                            <div class="col-md-6">
+                                <select id="buscaTag">
+                                    <option value="" disabled selected>Selecione</option>
+                                    @foreach (var tag in ViewBag.Tags)
+                                    {
+                                        <option value="@tag.Id">@tag.Tag</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Tags" class="col-md-4 col-form-label text-md-right">Tags Selecionadas</label>
+                            <div class="col-md-6">
+                                <div id="tagsSelecionadas" class="tagsContainer" style="padding-top: calc(.375rem + 1px)">
+                                    @foreach (var tag in ViewBag.TagsSelecionadas)
+                                    {
+                                        <span id="tags-@tag.Id" class="tags"><input hidden name="tags" value="@tag.Id" />@tag.Tag </span>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="Buscar" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-2 p-2">
+                    <div id="saldo">
+                        <p>Saldo: <strong> $@Model.Saldo</strong></p>
+                    </div>
+                    <div id="entrada">
+                        <p>Entradas: $@Model.Entradas</p>
+                    </div>
+                    <div id="saida">
+                        <p>Saídas: $@Model.Saidas</p>
+                    </div>
+                    <div class="listaMeses">
+                        @foreach (var mes in Model.Mensal.OrderBy(x => x.Mes))
+                        {
+                            <a class="mes card mt-2 p-2" href="/movimentacoes/relatorio/@mes.Mes.Month/@mes.Mes.Year">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p><strong>@mes.Mes.ToString("MMMM - yy")</strong></p>
+                                    </div>
+                                    <div id="saldo">
+                                        <p>Saldo do mês: $@mes.Saldo</p>
+                                    </div>
+                                    <div id="entrada">
+                                        <p>Entradas: $@mes.Entradas</p>
+                                    </div>
+                                    <div id="saida">
+                                        <p>Saídas: $@mes.Saidas</p>
+                                    </div>
+                                    <div id="quantidade">
+                                        <p>Total de registros: @mes.QuantidadeMovimentacoes</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        
+    </style>
+
+<script>
+
+
+
+
+</script>

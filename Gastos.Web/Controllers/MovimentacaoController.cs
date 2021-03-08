@@ -28,6 +28,7 @@ namespace Gastos.Web.Controllers
             _tagsService = tagsService;
         }
 
+        [Route("~/movimentacoes/criar")]
         public async Task<IActionResult> Create()
         {
             try
@@ -61,25 +62,27 @@ namespace Gastos.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("~/movimentacoes/criar")]
         public async Task<IActionResult> Create(MovimentacaoPost movimentacao)
         {
             try
             {
+                throw new Exception("teste");
                 var user = await _userManager.GetUserAsync(User);
 
-                _ = await _movimentacaoService.Create(movimentacao, user.Id);
+                var novoId = await _movimentacaoService.Create(movimentacao, user.Id);
+                return RedirectToAction($"movimentacoes/{novoId}");
             }
             catch (Exception ex)
             {
-                ViewBag.Message = ex.Message;
+                ModelState.AddModelError("Nome", ex.Message);
                 return View("Create");
             }
 
-            return RedirectToAction("Home");
         }
 
         [HttpGet]
-        [Route("~/movimentacao/{id}")]
+        [Route("~/movimentacoes/{id}")]
         public async Task<IActionResult> GetMovimentacaoAsync(long id)
         {
             try
@@ -89,11 +92,52 @@ namespace Gastos.Web.Controllers
                 var movimentacao = _movimentacaoService.GetMovimentacao(user.Id, id);
                 return View("Details", movimentacao);
             }
-            catch (Exception e){ 
-                
+            catch (Exception e){
+                TempData["modelError"] = "Falha ao buscar movimentação:" + e.Message;
+                return RedirectToAction("", "Home");
+
             }
             return Ok();
         }
 
+
+        [HttpGet]
+        [Route("~/movimentacoes/relatorio/{mes}/{ano}")]
+        public async Task<IActionResult> GetRelatorioMensal(int mes, int ano)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                var movimentacao = _movimentacaoService.GetRelatorioMovimentacoesMes(user.Id, mes, ano);
+                return View("Mensal", movimentacao);
+            }
+            catch (Exception e)
+            {
+                TempData["modelError"] = "Falha ao buscar relatório de mensal:" + e.Message;
+                return RedirectToAction("", "Home");
+            }
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("~/movimentacoes/excluir/{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                _ = await _movimentacaoService.ExcluirMovimentacao(user.Id, id);
+
+            }
+            catch (Exception e)
+            {
+                TempData["modelError"] = "Falha ao excluir movimentacao:" + e.Message;
+            }
+
+            return RedirectToAction("", "Home");
+
+        }
     }
 }

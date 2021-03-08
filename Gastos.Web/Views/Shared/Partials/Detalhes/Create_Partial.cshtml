@@ -32,7 +32,6 @@
                 <option value="@tag.Id">@tag.Tag</option>
             }
         </select>
-        @*<input asp-for="Valor" class="form-control" required autocomplete="Valor" type="number" min="0.01" autofocus />*@
         <span asp-validation-for="Detalhes[@i].Tags" class="text-danger"></span>
     </div>
 </div>
@@ -47,9 +46,24 @@
     $(document).ready(function () {
         $('#detalhesTag-@i').on('change', function () {
             let itemText = $('#detalhesTag-@i option:selected').text();
-            let newElement = "<span><input hidden name=\"Detalhes[@i].Tags[]\" value=\"" + this.value + "\"/>" + itemText + "</span> "
 
-            $('#tagsSelecionadas-@i').append(newElement);
+            var el = document.createElement("span");
+            el.className = "tags";
+            el.id = "tags-" + this.value;
+            el.textContent = itemText;
+            console.log(itemText);
+
+            var inner = document.createElement("input");
+            inner.hidden = true;
+            inner.name = "Detalhes[@i].Tags[]";
+            inner.value = this.value;
+
+            el.append(inner);
+            el.addEventListener("click", function () {
+                $(this).remove();
+            });
+
+            $('#tagsSelecionadas-@i').append(el);
         });
     })
 

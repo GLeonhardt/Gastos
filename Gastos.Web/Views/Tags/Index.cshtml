@@ -7,11 +7,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <a href="/tags/create" class="btn btn-primary float-right">Nova Tag</a>
+            <a href="/tags/criar" class="btn btn-primary float-right">Nova Tag</a>
             <h2>Tags</h2>
             @foreach (var tag in tags)
             {
-                <form method="POST" action="/tags/Delete/@tag.Id">
+                <form method="POST" action="/tags/Excluir/@tag.Id">
                     <a href="/tags/edit/@tag.Id">
                         <div class="card mt-2 p-2">
                             <div class="items-container">

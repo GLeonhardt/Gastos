@@ -11,8 +11,14 @@
             <div class="card">
                 <div class="card-header">Cadastrar Tag</div>
                 <div class="card-body">
-                    <form method="post" asp-controller="Tags" asp-action="Create" id="form" enctype="multipart/form-data">
+                    <form method="post" asp-controller="Tags" asp-action="Criar" id="form" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="form-group row">
+                                <div id="retorno">@ViewBag.Message</div>
+                            </div>
+                        }
                         <div class="form-group row">
                             <label for="Tag" class="col-md-4 col-form-label text-md-right">Tag</label>
                             <div class="col-md-6">

@@ -23,6 +23,7 @@ namespace Gastos.Web.Controllers
             _TagsService = tagsService;
         }
 
+        [Route("~/tags")]
         public async Task<IActionResult> Index()
         {
             var tags = new List<TagsDTO>();
@@ -34,11 +35,13 @@ namespace Gastos.Web.Controllers
             }
             catch (Exception e)
             {
-
+                TempData["modelError"] = e.Message;
+                return RedirectToAction("", "Home");
             }
             return View(tags.OrderByDescending(x => x.Id).ToList());
         }
 
+        [Route("~/tags/criar")]
         public IActionResult Create()
         {
             return View();
@@ -47,6 +50,7 @@ namespace Gastos.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("~/tags/criar")]
         public async Task<IActionResult> Create(TagPostViewModel tagPost)
         {
             try
@@ -57,7 +61,7 @@ namespace Gastos.Web.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(tagPost.Tag, ex.Message);
+                ModelState.AddModelError("Tag", ex.Message);
                 return View("Create");
             }
             return RedirectToAction("Index");
@@ -65,6 +69,7 @@ namespace Gastos.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("~/tags/excluir/{id}")]
         public async Task<IActionResult> Delete(long id)
         {
             try
@@ -76,7 +81,8 @@ namespace Gastos.Web.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(id.ToString(), ex.Message);
+                TempData["modelError"] = "Falha ao excluir tags:" +  ex.Message;
+                return RedirectToAction("", "Home");
             }
 
             return RedirectToAction("Index");

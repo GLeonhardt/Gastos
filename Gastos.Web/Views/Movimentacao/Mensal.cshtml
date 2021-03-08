@@ -1,0 +1,68 @@
+﻿@model Gastos.Core.Models.DTO.RelatorioMensallDTO
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-2 p-2">
+                <h4>@Model.Periodo</h4>
+                <div id="entrada">
+                    <p>Entradas: $@Model.Entrada</p>
+                </div>
+                <div id="saida">
+                    <p>Saídas: $@Model.Saida</p>
+                </div>
+                <div id="saldo">
+                    <p>Saldo do Mês: $@Model.Saldo</p>
+                </div>
+                <p><strong>@Model.Quantidade Registros:</strong></p>
+                <div class="listaMovimentacoes">
+                    @foreach (var movimentacao in Model.Movimentacoes)
+                    {
+                        <a class="movimentacao card mt-2 p-2" href="/movimentacoes/@movimentacao.Id">
+                            <p><strong>@movimentacao.Nome</strong> - @movimentacao.Tipo</p>
+                            <p>Data: @movimentacao.Data.ToString("dd/MM")</p>
+                            <p>Valor: $@movimentacao.Valor</p>
+                            <p><strong>Tags:</strong></p>
+                            <div class="tagsContainer" id="tags">
+
+                                @foreach (var tag in movimentacao.Tags)
+                                {
+                                    <span class="tags"> @tag</span>
+                                }
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .listaMovimentacoes {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .movimentacao {
+        min-width: 30%;
+        max-width: 30%;
+        margin: 4px;
+    }
+
+    .tagsContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .tags {
+        padding: 4px;
+        background-color: #a1d8ff;
+        border-radius: 12px;
+        margin: 4px;
+        color: #2e2e2e;
+    }
+</style>

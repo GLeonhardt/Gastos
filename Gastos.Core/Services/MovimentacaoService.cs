@@ -1,6 +1,7 @@
 ﻿using Gastos.Core.DTO;
 using Gastos.Core.Interfaces;
 using Gastos.Core.Models;
+using Gastos.Core.Models.DTO;
 using Gastos.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Gastos.Core.Services
             _tagsService = tagsService;
         }
 
-        public async Task<bool> Create(MovimentacaoPost movimentacaoPost, string usuarioId)
+        public async Task<long> Create(MovimentacaoPost movimentacaoPost, string usuarioId)
         {
             movimentacaoPost.Data = movimentacaoPost.Data == null ? DateTime.Now : movimentacaoPost.Data;
             var tags = await _tagsService.GetTagsByUsuario(usuarioId);
@@ -53,6 +54,28 @@ namespace Gastos.Core.Services
         public MovimentacoesInformacoesDTO GetMovimentacao(string userId, long movimentacaoId)
         {
             return _movimentacaoRepository.GetMovimentacao(userId, movimentacaoId);
+        }
+
+        public RelatorioMensallDTO GetRelatorioMovimentacoesMes(string userId, int mes, int ano)
+        {
+            if (mes < 1 || mes > 12)
+                throw new Exception("Mês inválido");
+
+            return _movimentacaoRepository.GetRelatorioMovimentacoesMes(userId, mes, ano);
+        }
+
+        public ResumoHomeDTO GetResumoHome(string usuarioId, DateTime? dataInicial, DateTime? dataFinal, List<long> tags)
+        {
+            var dataAtual = DateTime.Now;
+            var dtInicial = dataInicial is null ? new DateTime(dataAtual.Year, 01, 01, 00, 00, 00) : Convert.ToDateTime(dataInicial);
+            var dtFinal = dataFinal is null ? dataAtual : Convert.ToDateTime(dataFinal);
+
+            return _movimentacaoRepository.GetResumoHome(usuarioId, dtInicial, dtFinal, tags);
+        }
+
+        public async Task<bool> ExcluirMovimentacao(string usuarioId, long movimentacaoId)
+        {
+            return await _movimentacaoRepository.ExcluirMovimentacao(usuarioId, movimentacaoId);
         }
     }
 }

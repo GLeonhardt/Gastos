@@ -47,7 +47,7 @@ namespace Gastos.Web
             services.AddScoped<MovimentacaoService>();
             services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
             
-            var cultureInfo = new CultureInfo("en-US");
+            var cultureInfo = new CultureInfo("pt-BR");
             cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
             cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
 

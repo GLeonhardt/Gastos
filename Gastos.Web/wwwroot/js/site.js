@@ -1,4 +1,30 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+    $('#buscaTag').on('change', function () {
+        let itemText = $('#buscaTag option:selected').text();
 
-// Write your JavaScript code.
+        var el = document.createElement("span");
+        el.className = "tags";
+        el.id = "tags-" + this.value;
+        el.textContent = itemText;
+        console.log(itemText);
+
+        var inner = document.createElement("input");
+        inner.hidden = true;
+        inner.name = "tags";
+        inner.value = this.value;
+
+        el.append(inner);
+        el.addEventListener("click", function () {
+            $(this).remove();
+        });
+
+        $('#tagsSelecionadas').append(el);
+    });
+
+    $("span[id^='tags-']").on("click", function () {
+        $(this).remove();
+    });
+
+
+
+})
