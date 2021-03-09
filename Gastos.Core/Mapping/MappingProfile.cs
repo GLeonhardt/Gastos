@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 
-namespace Infrastructure.Mapping
+namespace Gastos.Core.Mapping
 {
     public class MappingProfile : Profile
     {

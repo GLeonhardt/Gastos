@@ -1,9 +1,9 @@
 using AutoMapper;
 using Gastos.Core.Interfaces;
+using Gastos.Core.Mapping;
 using Gastos.Core.Services;
 using Gastos.Infrastructure.Data;
 using Gastos.Infrastructure.Models;
-using Infrastructure.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
