@@ -11,8 +11,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Buscar</div>
-                <div class="card-body">
+                <div class="card-header" id="filtrosHeader">Filtros:</div>
+                <div class="card-body" id="filtrosBody" style="display:none">
                     <form method="get" asp-controller="Home" asp-action="Index" id="form">
                         @if (!string.IsNullOrEmpty(ViewBag.Message))
                         {
@@ -109,14 +109,3 @@
             </div>
         </div>
     </div>
-
-    <style>
-        
-    </style>
-
-<script>
-
-
-
-
-</script>

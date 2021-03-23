@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
+    var mostrandoFiltros = false;
     $('#buscaTag').on('change', function () {
-        let itemText = $('#buscaTag option:selected').text();
+        var itemText = $('#buscaTag option:selected').text();
 
         var el = document.createElement("span");
         el.className = "tags";
@@ -25,6 +26,15 @@
         $(this).remove();
     });
 
-
+    $("#filtrosHeader").on("click", function () {
+        if (mostrandoFiltros == true) {
+            mostrandoFiltros = false;
+            $('#filtrosBody').hide();
+        }
+        else {
+            mostrandoFiltros = true;
+            $('#filtrosBody').show();
+        }
+    });
 
 })

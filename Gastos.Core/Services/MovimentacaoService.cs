@@ -16,7 +16,8 @@ namespace Gastos.Core.Services
         private readonly IMovimentacaoRepository _movimentacaoRepository;
         private TagsService _tagsService;
 
-        public MovimentacaoService(IMovimentacaoRepository movimentacaoRepository, TagsService tagsService)
+        public MovimentacaoService(IMovimentacaoRepository movimentacaoRepository, 
+               TagsService tagsService)
         {
             _movimentacaoRepository = movimentacaoRepository;
             _tagsService = tagsService;

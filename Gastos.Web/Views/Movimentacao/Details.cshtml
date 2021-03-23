@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Movimentação</h2>
             <form method="POST" action="/movimentacoes/Excluir/@Model.Id">
 
@@ -39,23 +39,30 @@
                     {
                         <div class="card-header"> Detalhes</div>
                     }
-                    @foreach (var detalhe in Model.Detalhes)
-                    {
-                        <div id="detalheNome">
-                            <p>Nome: @detalhe.Nome</p>
-                        </div>
-                        <div id="detalheValor">
-                            <p>Valor: $@detalhe.Valor</p>
-                        </div>
-                        <p><strong>Tags:</strong></p>
-                        <div class="tagsContainer" id="tags">
 
-                            @foreach (var tag in detalhe.Tags)
-                            {
-                                <span class="tags"> @tag</span>
-                            }
-                        </div>
-                    }
+                    <div class="listaDetalhes">
+                        @foreach (var detalhe in Model.Detalhes)
+                        {
+                            <div class="detalhe card mt-2 p-2">
+                                <div class="card">
+                                    <div class="card-header detalheHeader">
+                                        <p><strong>@detalhe.Nome</strong></p>
+                                    </div>
+                                    <div id="detalheValor">
+                                        <p>Valor: $@detalhe.Valor</p>
+                                    </div>
+                                    <p><strong>Tags:</strong></p>
+                                    <div class="tagsContainer" id="tags">
+
+                                        @foreach (var tag in detalhe.Tags)
+                                        {
+                                            <span class="tags"> @tag</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </form>
         </div>

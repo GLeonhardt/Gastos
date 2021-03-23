@@ -67,11 +67,10 @@ namespace Gastos.Web.Controllers
         {
             try
             {
-                throw new Exception("teste");
                 var user = await _userManager.GetUserAsync(User);
 
                 var novoId = await _movimentacaoService.Create(movimentacao, user.Id);
-                return RedirectToAction($"movimentacoes/{novoId}");
+                return RedirectToAction($"{novoId}", "movimentacoes");
             }
             catch (Exception ex)
             {
