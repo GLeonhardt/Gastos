@@ -38,7 +38,7 @@ namespace Gastos.Web.Controllers
                 ViewBag.Tags = tags;
                 return View();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -54,7 +54,7 @@ namespace Gastos.Web.Controllers
                 ViewBag.Index = index;
                 return PartialView("~/Views/Shared/Partials/Detalhes/Create_Partial.cshtml");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -96,7 +96,6 @@ namespace Gastos.Web.Controllers
                 return RedirectToAction("", "Home");
 
             }
-            return Ok();
         }
 
 
@@ -116,7 +115,6 @@ namespace Gastos.Web.Controllers
                 TempData["modelError"] = "Falha ao buscar relatório de mensal:" + e.Message;
                 return RedirectToAction("", "Home");
             }
-            return Ok();
         }
 
         [HttpPost]

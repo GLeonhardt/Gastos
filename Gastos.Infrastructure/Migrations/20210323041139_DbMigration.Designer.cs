@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gastos.Infrastructure.Migrations
 {
     [DbContext(typeof(GastosContext))]
-    [Migration("20210129132629_UserSchema")]
-    partial class UserSchema
+    [Migration("20210323041139_DbMigration")]
+    partial class DbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,7 +71,7 @@ namespace Gastos.Infrastructure.Migrations
                         .HasColumnName("MovimentacaoId")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime?>("Data")
+                    b.Property<DateTime>("Data")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("(getdate())");
@@ -140,6 +140,18 @@ namespace Gastos.Infrastructure.Migrations
                     b.HasKey("TipoMovimentacaoId");
 
                     b.ToTable("TipoMovimentacoes");
+
+                    b.HasData(
+                        new
+                        {
+                            TipoMovimentacaoId = 1L,
+                            Tipo = "Entrada"
+                        },
+                        new
+                        {
+                            TipoMovimentacaoId = 2L,
+                            Tipo = "Saida"
+                        });
                 });
 
             modelBuilder.Entity("Gastos.Infrastructure.Models.Usuarios", b =>

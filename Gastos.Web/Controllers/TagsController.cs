@@ -106,7 +106,7 @@ namespace Gastos.Web.Controllers
 
                 return View(tag);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return RedirectToAction("Index");
             }

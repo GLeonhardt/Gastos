@@ -42,19 +42,6 @@ namespace Gastos.Infrastructure.Models
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
             modelBuilder.UseIdentityColumns();
 
-            //modelBuilder.Entity<Usuarios>(entity =>
-            //{
-            //    entity.ToTable("Usuarios");
-
-            //    entity.HasKey(e => e.UsuarioId);
-            //    entity.Property(e => e.UsuarioId).HasColumnName("UsuarioId").ValueGeneratedOnAdd();
-            //    entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-
-            //    entity.Property(e => e.Nome).IsRequired().HasMaxLength(100);
-
-            //    entity.Property(e => e.Senha).IsRequired();
-            //});
-
             modelBuilder.Entity<Tags>(entity =>
             {
                 entity.ToTable("Tags");
@@ -79,10 +66,6 @@ namespace Gastos.Infrastructure.Models
                 .UsingEntity(f => f.ToTable("MovimentacoesTags"));
             });
 
-            //modelBuilder.Entity<Tags>().HasMany<Movimentacoes>(m =>m.Movimentacoes)
-            //    .WithMany(t => t.Tags)
-            //    .LeftNavigation()
-
             modelBuilder.Entity<TipoMovimentacoes>(entity =>
             {
                 entity.ToTable("TipoMovimentacoes");
@@ -91,6 +74,11 @@ namespace Gastos.Infrastructure.Models
 
                 entity.Property(e => e.Tipo).HasMaxLength(20).HasColumnName("Tipo");
             });
+
+            modelBuilder.Entity<TipoMovimentacoes>().HasData(
+                new TipoMovimentacoes {TipoMovimentacaoId = 1, Tipo = "Entrada"},
+                new TipoMovimentacoes {TipoMovimentacaoId = 2, Tipo = "Saida"}
+                );
 
             modelBuilder.Entity<Movimentacoes>(entity =>
             {

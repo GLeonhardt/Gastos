@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gastos.Infrastructure.Migrations
 {
-    public partial class UserSchema : Migration
+    public partial class DbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -196,7 +196,7 @@ namespace Gastos.Infrastructure.Migrations
                     TipoMovimentacaoId = table.Column<long>(type: "bigint", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Valor = table.Column<decimal>(type: "money", nullable: false),
-                    Data = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "(getdate())")
+                    Data = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())")
                 },
                 constraints: table =>
                 {
@@ -283,6 +283,16 @@ namespace Gastos.Infrastructure.Migrations
                         principalColumn: "TagId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "TipoMovimentacoes",
+                columns: new[] { "TipoMovimentacaoId", "Tipo" },
+                values: new object[] { 1L, "Entrada" });
+
+            migrationBuilder.InsertData(
+                table: "TipoMovimentacoes",
+                columns: new[] { "TipoMovimentacaoId", "Tipo" },
+                values: new object[] { 2L, "Saida" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
