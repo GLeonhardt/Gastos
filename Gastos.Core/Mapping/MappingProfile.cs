@@ -20,16 +20,18 @@ namespace Gastos.Core.Mapping
 
             CreateMap<Movimentacoes, MovimentacoesInformacoesDTO>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(src => src.MovimentacaoId))
+                .ForMember(x => x.Valor, opt => opt.MapFrom(src => Math.Round(src.Valor, 2)))
                 .ForMember(dest => dest.Tags,
                     opt => opt.MapFrom(src => src.Tags.Select(x => x.Tag).ToList()));
 
             CreateMap<Detalhes, MovimentacoesDetalhesInformacoesDTO>()
+                .ForMember(x => x.Valor, opt => opt.MapFrom(src => Math.Round(src.Valor,2)))
                 .ForMember(dest => dest.Tags,
                     opt => opt.MapFrom(source => source.Tags.Select(x => x.Tag)));
 
             CreateMap<Movimentacoes, RelatorioMensalMovimentacoesDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.MovimentacaoId))
-                .ForMember(dest => dest.Valor, opt => opt.MapFrom(src => Math.Round(src.Valor)))
+                .ForMember(dest => dest.Valor, opt => opt.MapFrom(src => Math.Round(src.Valor, 2)))
                 .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => src.TipoMovimentacao.Tipo))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(x => x.Tag)));
 

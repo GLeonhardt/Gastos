@@ -57,7 +57,7 @@ namespace Gastos.Web.Controllers
             }
 
             ViewBag.DataInicial = dataInicial != null ? dataInicial : new DateTime(DateTime.Now.Year, 01, 01, 00, 00, 00);
-            ViewBag.DataFinal = dataFinal != null ? dataInicial : DateTime.Now;
+            ViewBag.DataFinal = dataFinal != null ? dataFinal : DateTime.Now;
             return View(resumoHome);
         }
 
